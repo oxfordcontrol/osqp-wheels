@@ -12,7 +12,7 @@ function pre_build {
 	    brew upgrade cmake || brew install cmake
     else
 	    fetch_unpack http://www.cmake.org/files/v3.7/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
-	    export PATH=${TRAVIS_BUILD_DIR}/cmake-${CMAKE_VERSION}-Linux-x86_64/bin:${PATH}
+	    export PATH=`pwd`/cmake-${CMAKE_VERSION}-Linux-x86_64/bin:${PATH}
     fi
     cmake --version
 }
