@@ -14,7 +14,7 @@ function pre_build {
     #         fetch_unpack http://www.cmake.org/files/v3.7/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
     #         export PATH=`pwd`/cmake-${CMAKE_VERSION}-Linux-x86_64/bin:${PATH}
     fi
-    cmake --version
+    # cmake --version
 }
 
 
