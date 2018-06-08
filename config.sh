@@ -10,9 +10,9 @@ function pre_build {
     if [ -n "$IS_OSX" ]; then
 	    brew update
 	    brew upgrade cmake || brew install cmake
-    else
-	    fetch_unpack http://www.cmake.org/files/v3.7/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
-	    export PATH=`pwd`/cmake-${CMAKE_VERSION}-Linux-x86_64/bin:${PATH}
+    # else
+    #         fetch_unpack http://www.cmake.org/files/v3.7/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
+    #         export PATH=`pwd`/cmake-${CMAKE_VERSION}-Linux-x86_64/bin:${PATH}
     fi
     cmake --version
 }
