@@ -1,0 +1,6 @@
+[submodule "multibuild"]
+	path = multibuild
+	url = https://github.com/matthew-brett/multibuild.git
+[submodule "osqp-python"]
+	path = osqp-python
+	url = https://github.com/oxfordcontrol/osqp-python.git
