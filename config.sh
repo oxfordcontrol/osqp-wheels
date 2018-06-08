@@ -9,10 +9,10 @@ function pre_build {
     if [ -n "$IS_OSX" ]; then
 	    brew update
 	    brew upgrade cmake || brew install cmake
-    else
-	    CMAKE_URL="http://www.cmake.org/files/v3.7/cmake-3.7.1-Linux-x86_64.tar.gz"
-	    mkdir cmake && wget --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
-	    export PATH=${TRAVIS_BUILD_DIR}/cmake/bin:${PATH}
+    # else
+    #         CMAKE_URL="http://www.cmake.org/files/v3.7/cmake-3.7.1-Linux-x86_64.tar.gz"
+    #         mkdir cmake && wget --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
+    #         export PATH=${TRAVIS_BUILD_DIR}/cmake/bin:${PATH}
     fi
     cmake --version
 }
