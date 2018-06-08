@@ -1,5 +1,6 @@
 # Define custom utilities
 # Test for OSX with [ -n "$IS_OSX" ]
+CMAKE_VERSION="3.7.1"
 
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
@@ -10,11 +11,9 @@ function pre_build {
 	    brew update
 	    brew upgrade cmake || brew install cmake
     else
-	    export CMAKE_URL="http://www.cmake.org/files/v3.7/cmake-3.7.1-Linux-x86_64.tar.gz"
-	    mkdir cmake && wget --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
-	    export PATH=${TRAVIS_BUILD_DIR}/cmake/bin:${PATH}
+	    fetch_unpack http://www.cmake.org/files/v3.7/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
+	    export PATH=${TRAVIS_BUILD_DIR}/cmake-${CMAKE_VERSION}-Linux-x86_64/bin:${PATH}
     fi
-    # export PY_BIN = python -c "import sys; print(sys.executable[:-6])"
     cmake --version
 }
 
