@@ -1,6 +1,8 @@
 # Define custom utilities
 # Test for OSX with [ -n "$IS_OSX" ]
-CMAKE_VERSION="3.7.1"
+CMAKE_VER_MAJ="3"
+CMAKE_VER_MIN="7"
+CMAKE_VER_PATCH="2"
 
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
@@ -10,11 +12,14 @@ function pre_build {
     if [ -n "$IS_OSX" ]; then
 	    brew update
 	    brew upgrade cmake || brew install cmake
-    # else
-    #         fetch_unpack http://www.cmake.org/files/v3.7/cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz
-    #         export PATH=`pwd`/cmake-${CMAKE_VERSION}-Linux-x86_64/bin:${PATH}
+    else
+	  fetch_unpack http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/cmake-${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}.${CMAKE_VER_PATCH}.tar.gz
+	  (cd cmake-${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}.${CMAKE_VER_PATCH} \
+	      && ./bootstrap --system-curl \
+	      && make \
+	      && make install)
     fi
-    # cmake --version
+    cmake --version
 }
 
 
