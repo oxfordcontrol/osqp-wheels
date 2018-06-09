@@ -7,11 +7,20 @@ max_jobs: 100
 
 environment:
   global:
+      REPO_DIR: osqp-python
       BUILD_COMMIT: adf566681a4b34bfaf1a7f09cea47fed8742eb13
       NP_BUILD_DEP: "numpy==1.10.4"
       NP_TEST_DEP: "numpy==1.10.4"
       MINGW_32: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
       MINGW_64: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
+      OPENBLAS_32: "https://3f23b170c54c2533c070-1c8a9b3114517dc5fe17b7c3f8c63a43\
+                    .ssl.cf2.rackcdn.com/openblas-5f998ef_gcc7_1_0_win32.zip"
+      OPENBLAS_64: "https://3f23b170c54c2533c070-1c8a9b3114517dc5fe17b7c3f8c63a43\
+                    .ssl.cf2.rackcdn.com/openblas-5f998ef_gcc7_1_0_win64.zip"
+      OPENBLAS_32_SHA256: "0a12804b08d475179a0411936f509b44d7512f0\
+                           84b4a81c2fa3abe8c9ac4ee09"
+      OPENBLAS_64_SHA256: "8f11d8a5a79795a3a1ccb2326c979a0ca426e62\
+                           3eee93f8e35239e3c21e62cd6"
       WHEELHOUSE_UPLOADER_USERNAME: travis-worker
       WHEELHOUSE_UPLOADER_SECRET:
         secure:
@@ -49,16 +58,61 @@ install:
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
   - python -m pip install -U pip
 
-  #Set environment for build if 64bit
-  - IF "%PYTHON_ARCH%"=="64" ( call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64) ELSE ( "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86)
-  # # Fix MSVC builds for 64-bit Python. See:
-  # # http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10
-  # - echo "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 > "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat"
+  # Get needed submodules
+  - git submodule update --init
 
+  # Set environment for build if 64bit
+  - IF "%PYTHON_ARCH%"=="64" ( call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64) ELSE ( "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86)
+
+  # Download and install static "openblas.a" to PYTHON\lib
+  - ps: |
+      $PYTHON_ARCH = $env:PYTHON_ARCH
+      $PYTHON = $env:PYTHON
+      If ($PYTHON_ARCH -eq 32) {
+          $OPENBLAS = $env:OPENBLAS_32
+          $OPENBLAS_SHA256 = $env:OPENBLAS_32_SHA256
+      } Else {
+          $OPENBLAS = $env:OPENBLAS_64
+          $OPENBLAS_SHA256 = $env:OPENBLAS_64_SHA256
+      }
+      $clnt = new-object System.Net.WebClient
+      $file = "$(New-TemporaryFile).zip"
+      $tmpdir = New-TemporaryFile | %{ rm $_; mkdir $_ }
+      $destination = "$PYTHON\lib\openblas.a"
+      echo $file
+      echo $tmpdir
+      echo $OPENBLAS
+      $clnt.DownloadFile($OPENBLAS,$file)
+      $downloaded_hash = Get-FileHash -Algorithm SHA256 $file
+      if ($downloaded_hash.hash -ne $OPENBLAS_SHA256) {
+          $downloaded_hash | Format-List
+          echo $OPENBLAS_SHA256
+          throw "Downloaded OPENBLAS zip SHA256 does not match."
+      }
+      Expand-Archive $file $tmpdir
+      rm $tmpdir\$PYTHON_ARCH\lib\*.dll.a
+      $lib = ls $tmpdir\$PYTHON_ARCH\lib\*.a | ForEach { ls $_ } | Select-Object -first 1
+      echo $lib
+      cp $lib $destination
+      ls $destination
+
+  # Upgrade to the latest pip and setuptools.
+  - python -m pip install -U pip setuptools
   # Install the build dependencies of the project.
   - pip install %NP_BUILD_DEP% scipy future
   # Pin wheel to 0.26 to avoid Windows ABI tag for built wheel
   - pip install wheel==0.26
+
+  # Set MINGW PATH
+  - ps: |
+       $PYTHON_ARCH = $env:PYTHON_ARCH
+       If ($PYTHON_ARCH -eq 32) {
+           $MINGW = $env:MINGW_32
+       } Else {
+           $MINGW = $env:MINGW_64
+       }
+       $env:Path += ";$MINGW"
+
   # Build wheel
   - cd %REPO_DIR%
   - git submodule update --init
@@ -66,7 +120,7 @@ install:
   - python setup.py bdist_wheel
   - cd ..
 
-build: false  # Not a C# project. Build stuff at test step instead
+build: false
 
 test_script:
   # Install the test dependencies
@@ -74,7 +128,6 @@ test_script:
   - pip install --pre --no-index --find-links .\%REPO_DIR%\dist %PKG_NAME%
   - cd %REPO_DIR%
   - pytest
-  - cd ..
 
 artifacts:
   # Archive the generated wheel package in the ci.appveyor.com build report.
