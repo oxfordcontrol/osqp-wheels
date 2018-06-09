@@ -9,8 +9,8 @@ environment:
   global:
       REPO_DIR: osqp-python
       BUILD_COMMIT: adf566681a4b34bfaf1a7f09cea47fed8742eb13
-      NP_BUILD_DEP: "numpy==1.10.4"
-      NP_TEST_DEP: "numpy==1.10.4"
+      NP_BUILD_DEP: "numpy==1.11.2"
+      NP_TEST_DEP: "numpy==1.11.2"
       MINGW_32: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
       MINGW_64: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
       OPENBLAS_32: "https://3f23b170c54c2533c070-1c8a9b3114517dc5fe17b7c3f8c63a43\
@@ -52,6 +52,11 @@ environment:
       PYTHON_ARCH: 64
 
 install:
+  # Remove entry with sh.exe from PATH to fix error with MinGW toolchain
+  # (For MinGW make to work correctly sh.exe must NOT be in your path)
+  # http://stackoverflow.com/a/3870338/2288008
+  - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
+
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).
