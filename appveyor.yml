@@ -143,7 +143,7 @@ test_script:
 
 artifacts:
   # Archive the generated wheel package in the ci.appveyor.com build report.
-- path: $(REPO_DIR)\dist\*
+  - path: $(REPO_DIR)\dist\*
 
 # on_success:
 #   # Debug deployment
@@ -171,14 +171,14 @@ artifacts:
 #   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 deploy:
-- provider: BinTray
-  username: bstellato
-  api_key:
-    secure: ng7NUNQat2LczU5XjKKyDLITkZbZsJeAdPGDjuTdQDHDiaL03JJF6Usab+miNVsO
-  subject: bstellato
-  repo: general
-  package: osqp-wheels
-  version: %BUILD_COMMIT%
-  publish: true
-  override: true
+    - provider: BinTray
+      username: bstellato
+      api_key:
+        secure: ng7NUNQat2LczU5XjKKyDLITkZbZsJeAdPGDjuTdQDHDiaL03JJF6Usab+miNVsO
+        subject: bstellato
+        repo: general
+        package: osqp-wheels
+        version: %BUILD_COMMIT%
+        publish: true
+        override: true
 
