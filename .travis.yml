@@ -76,10 +76,6 @@ matrix:
       language:  generic
       env:
         - MB_PYTHON_VERSION=3.6
-    - os:        osx
-      language:  generic
-      env:
-        - MB_PYTHON_VERSION=pypy-5.7
 
 before_install:
     - source multibuild/common_utils.sh
@@ -99,13 +95,3 @@ after_success:
     - for f in ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl; do curl -T $f -ubstellato:$BINTRAY_API_KEY -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:${BUILD_COMMIT}" https://api.bintray.com/content/bstellato/generic/osqp-wheels/${BUILD_COMMIT}/; done
      # Publish
     - curl -X POST -ubstellato:$BINTRAY_API_KEY https://api.bintray.com/content/bstellato/generic/osqp-wheels/${BUILD_COMMIT}/publish
-
-    # # Upload wheels to Rackspace container
-    # - pip install wheelhouse-uploader
-    # # This uploads the wheels to a Rackspace container owned by the
-    # # scikit-learn team, available at http://wheels.scipy.org.  See above
-    # # for information on using this account or choosing another.
-    # - python -m wheelhouse_uploader upload --local-folder
-    #     ${TRAVIS_BUILD_DIR}/wheelhouse/
-    #     --no-update-index
-    #     wheels

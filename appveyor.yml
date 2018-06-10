@@ -69,44 +69,9 @@ install:
   # Get needed submodules
   - git submodule update --init
 
-  # # Set environment for build if 64bit
-  # - IF "%PYTHON_ARCH%"=="64" ( call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64) ELSE ( "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86)
-
   # Fix MSVC builds for 64-bit Python. See:
   # http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10
   - echo "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 > "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat"
-
-  # # Download and install static "openblas.a" to PYTHON\lib
-  # - ps: |
-  #     $PYTHON_ARCH = $env:PYTHON_ARCH
-  #     $PYTHON = $env:PYTHON
-  #     If ($PYTHON_ARCH -eq 32) {
-  #         $OPENBLAS = $env:OPENBLAS_32
-  #         $OPENBLAS_SHA256 = $env:OPENBLAS_32_SHA256
-  #     } Else {
-  #         $OPENBLAS = $env:OPENBLAS_64
-  #         $OPENBLAS_SHA256 = $env:OPENBLAS_64_SHA256
-  #     }
-  #     $clnt = new-object System.Net.WebClient
-  #     $file = "$(New-TemporaryFile).zip"
-  #     $tmpdir = New-TemporaryFile | %{ rm $_; mkdir $_ }
-  #     $destination = "$PYTHON\lib\openblas.a"
-  #     echo $file
-  #     echo $tmpdir
-  #     echo $OPENBLAS
-  #     $clnt.DownloadFile($OPENBLAS,$file)
-  #     $downloaded_hash = Get-FileHash -Algorithm SHA256 $file
-  #     if ($downloaded_hash.hash -ne $OPENBLAS_SHA256) {
-  #         $downloaded_hash | Format-List
-  #         echo $OPENBLAS_SHA256
-  #         throw "Downloaded OPENBLAS zip SHA256 does not match."
-  #     }
-  #     Expand-Archive $file $tmpdir
-  #     rm $tmpdir\$PYTHON_ARCH\lib\*.dll.a
-  #     $lib = ls $tmpdir\$PYTHON_ARCH\lib\*.a | ForEach { ls $_ } | Select-Object -first 1
-  #     echo $lib
-  #     cp $lib $destination
-  #     ls $destination
 
   # Upgrade to the latest pip and setuptools.
   - python -m pip install -U pip setuptools
@@ -147,39 +112,6 @@ artifacts:
   - path: $(REPO_DIR)\dist\*
 
 on_success:
-  # Debug deployment
-  # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # Upload all wheels to bintray
   - for %%f in (%REPO_DIR%\dist\*.whl) do (curl -T %%f -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/)
-  # - curl -T %REPO_DIR%\dist\*.whl -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/
   - curl -X POST -ubstellato:%BINTRAY_API_KEY% https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/publish
-#
-#   # Upload the generated wheel package to Rackspace
-#   # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
-#   # disable the ssl checks.
-#   - pip install wheelhouse-uploader
-#   - python -m wheelhouse_uploader upload --no-update-index --no-ssl-check --local-folder=%REPO_DIR%\dist wheels
-#
-# cache:
-#   # Use the appveyor cache to avoid re-downloading large archives such
-#   # the MKL numpy and scipy wheels mirrored on a rackspace cloud
-#   # container, speed up the appveyor jobs and reduce bandwidth
-#   # usage on our rackspace account.
-#   - '%APPDATA%\pip\Cache'
-
-# Appveyor debug
-# on_finish:
-#   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
-# deploy:
-#     - provider: BinTray
-#       username: bstellato
-#       api_key:
-#         secure: ng7NUNQat2LczU5XjKKyDLITkZbZsJeAdPGDjuTdQDHDiaL03JJF6Usab+miNVsO
-#       subject: bstellato
-#       repo: generic
-#       package: osqp-wheels
-#       version: "%BUILD_COMMIT%"
-#       publish: true
-#       override: true
-
