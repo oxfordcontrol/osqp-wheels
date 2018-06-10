@@ -176,7 +176,7 @@ deploy:
       api_key:
         secure: ng7NUNQat2LczU5XjKKyDLITkZbZsJeAdPGDjuTdQDHDiaL03JJF6Usab+miNVsO
       subject: bstellato
-      repo: general
+      repo: generic
       package: osqp-wheels
       version: "%BUILD_COMMIT%"
       publish: true
