@@ -165,3 +165,8 @@ cache:
   # container, speed up the appveyor jobs and reduce bandwidth
   # usage on our rackspace account.
   - '%APPDATA%\pip\Cache'
+
+# Appveyor debug
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
