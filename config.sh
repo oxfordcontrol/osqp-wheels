@@ -16,29 +16,33 @@ function pre_build {
 		brew update
 		brew upgrade cmake || brew install cmake
 	else
-		# Install cmake package
-		yum install -y cmake
 		# Unpack cmake
 		# CMAKE_NAME="cmake-${CMAKE_VER_FULL}-Linux-x86_64"
 		# CMAKE_URL="http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/${CMAKE_NAME}.tar.gz"
 		# fetch_unpack ${CMAKE_URL}
 		# export PATH=`pwd`/${CMAKE_NAME}/bin:${PATH}
 
-		# # Build zlib (required by cmake)
-		# build_zlib
-		# fetch_unpack http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/cmake-${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}.${CMAKE_VER_PATCH}.tar.gz
-		# (cd cmake-${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}.${CMAKE_VER_PATCH} \
-			#     && ./bootstrap --system-curl \
-			#     && make \
-			#     && make install)
+		# Build cmake and zlib (required by cmake)
+		build_zlib
+		fetch_unpack http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/cmake-${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}.${CMAKE_VER_PATCH}.tar.gz
+		(cd cmake-${CMAKE_VER_FULL} \
+			    && ./bootstrap --system-curl \
+			    && make \
+			    && make install)
 	fi
 	cmake --version
 }
 
 
 function run_tests {
-	# Install cmake package
-	yum install -y cmake
+	# Build cmake and zlib (required by cmake)
+	build_zlib
+	fetch_unpack http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/cmake-${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}.${CMAKE_VER_PATCH}.tar.gz
+	(cd cmake-${CMAKE_VER_FULL} \
+		&& ./bootstrap --system-curl \
+		&& make \
+		&& make install)
+
 	# Add Cmake to docker
 	# CMAKE_NAME="cmake-${CMAKE_VER_FULL}-Linux-x86_64"
 	# CMAKE_URL="http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/${CMAKE_NAME}.tar.gz"
