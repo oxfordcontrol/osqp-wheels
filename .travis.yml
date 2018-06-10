@@ -96,7 +96,7 @@ script:
 
 after_success:
     # Upload to bintray
-    - curl -T ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl -ubstellato:$BINTRAY_API_KEY -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:${BUILD_COMMIT}" https://api.bintray.com/content/bstellato/generic/osqp-wheels/${BUILD_COMMIT}/
+    for f in ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl; do curl -T f -ubstellato:$BINTRAY_API_KEY -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:${BUILD_COMMIT}" https://api.bintray.com/content/bstellato/generic/osqp-wheels/${BUILD_COMMIT}/ done
      # Publish
     - curl -X POST -ubstellato:$BINTRAY_API_KEY https://api.bintray.com/content/bstellato/generic/osqp-wheels/${BUILD_COMMIT}/publish
 

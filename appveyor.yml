@@ -146,8 +146,9 @@ artifacts:
 - path: $(REPO_DIR)\dist\*
 
 on_success:
-  # Upload to bintray
-  - curl -T %REPO_DIR%\dist\*.whl -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/
+  # Upload all wheels to bintray
+  - for %%f in (*.whl) do (curl -T %%f -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/)
+  # - curl -T %REPO_DIR%\dist\*.whl -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/
   - curl -X POST -ubstellato:%BINTRAY_API_KEY% https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/publish
 
   # Upload the generated wheel package to Rackspace
