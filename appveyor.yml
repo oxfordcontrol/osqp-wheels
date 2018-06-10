@@ -175,10 +175,10 @@ deploy:
       username: bstellato
       api_key:
         secure: ng7NUNQat2LczU5XjKKyDLITkZbZsJeAdPGDjuTdQDHDiaL03JJF6Usab+miNVsO
-        subject: bstellato
-        repo: general
-        package: osqp-wheels
-        version: "%BUILD_COMMIT%"
-        publish: true
-        override: true
+      subject: bstellato
+      repo: general
+      package: osqp-wheels
+      version: "%BUILD_COMMIT%"
+      publish: true
+      override: true
 
