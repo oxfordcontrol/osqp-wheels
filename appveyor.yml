@@ -22,6 +22,8 @@ environment:
                            84b4a81c2fa3abe8c9ac4ee09"
       OPENBLAS_64_SHA256: "8f11d8a5a79795a3a1ccb2326c979a0ca426e62\
                            3eee93f8e35239e3c21e62cd6"
+      BINTRAY_API_KEY:
+              secure: ng7NUNQat2LczU5XjKKyDLITkZbZsJeAdPGDjuTdQDHDiaL03JJF6Usab+miNVsO
       WHEELHOUSE_UPLOADER_USERNAME: travis-worker
       WHEELHOUSE_UPLOADER_SECRET:
         secure:
@@ -144,6 +146,10 @@ artifacts:
 - path: $(REPO_DIR)\dist\*
 
 on_success:
+  # Upload to bintray
+  - curl -T %REPO_DIR%\dist\*.whl -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/
+  - curl -X POST -ubstellato:%BINTRAY_API_KEY% https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/publish
+
   # Upload the generated wheel package to Rackspace
   # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
   # disable the ssl checks.
