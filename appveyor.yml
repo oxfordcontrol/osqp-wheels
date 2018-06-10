@@ -178,7 +178,7 @@ deploy:
         subject: bstellato
         repo: general
         package: osqp-wheels
-        version: %BUILD_COMMIT%
+        version: "%BUILD_COMMIT%"
         publish: true
         override: true
 
