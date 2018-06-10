@@ -137,7 +137,7 @@ test_script:
   - pip install %NP_TEST_DEP% scipy future pytest
   - pip install --pre --no-index --find-links %REPO_DIR%\dist %PKG_NAME%
   - cd %REPO_DIR%
-  - pytest
+  - python -m pytest
 
 artifacts:
   # Archive the generated wheel package in the ci.appveyor.com build report.
