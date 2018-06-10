@@ -147,7 +147,7 @@ artifacts:
 
 on_success:
   # Debug deployment
-  - iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # Upload all wheels to bintray
   - for %%f in (%REPO_DIR%\dist\*.whl) do (curl -T %%f -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/)
   # - curl -T %REPO_DIR%\dist\*.whl -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/

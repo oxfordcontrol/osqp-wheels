@@ -16,10 +16,14 @@ function pre_build {
 		brew update
 		brew upgrade cmake || brew install cmake
 	else
-		CMAKE_NAME="cmake-${CMAKE_VER_FULL}-Linux-x86_64"
-		CMAKE_URL="http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/${CMAKE_NAME}.tar.gz"
-		fetch_unpack ${CMAKE_URL}
-		export PATH=`pwd`/${CMAKE_NAME}/bin:${PATH}
+		# Install cmake package
+		yum install -y cmake
+		# Unpack cmake
+		# CMAKE_NAME="cmake-${CMAKE_VER_FULL}-Linux-x86_64"
+		# CMAKE_URL="http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/${CMAKE_NAME}.tar.gz"
+		# fetch_unpack ${CMAKE_URL}
+		# export PATH=`pwd`/${CMAKE_NAME}/bin:${PATH}
+
 		# # Build zlib (required by cmake)
 		# build_zlib
 		# fetch_unpack http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/cmake-${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}.${CMAKE_VER_PATCH}.tar.gz
@@ -33,12 +37,14 @@ function pre_build {
 
 
 function run_tests {
+	# Install cmake package
+	yum install -y cmake
 	# Add Cmake to docker
-	CMAKE_NAME="cmake-${CMAKE_VER_FULL}-Linux-x86_64"
-	CMAKE_URL="http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/${CMAKE_NAME}.tar.gz"
-	fetch_unpack ${CMAKE_URL}
-	export PATH=`pwd`/${CMAKE_NAME}/bin:${PATH}
-	cmake --version
+	# CMAKE_NAME="cmake-${CMAKE_VER_FULL}-Linux-x86_64"
+	# CMAKE_URL="http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/${CMAKE_NAME}.tar.gz"
+	# fetch_unpack ${CMAKE_URL}
+	# export PATH=`pwd`/${CMAKE_NAME}/bin:${PATH}
+	# cmake --version
 
 	# Runs tests on installed distribution from an empty directory
 	python --version
