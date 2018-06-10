@@ -140,6 +140,7 @@ test_script:
   - pip install --pre --no-index --find-links %REPO_DIR%\dist %PKG_NAME%
   - cd %REPO_DIR%
   - python -m pytest
+  - cd ..
 
 artifacts:
   # Archive the generated wheel package in the ci.appveyor.com build report.
@@ -149,7 +150,7 @@ on_success:
   # Debug deployment
   # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # Upload all wheels to bintray
-  - for %f in (%REPO_DIR%\dist\*.whl) do (curl -T %f -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/)
+  - for %%f in (%REPO_DIR%\dist\*.whl) do (curl -T %%f -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/)
   # - curl -T %REPO_DIR%\dist\*.whl -ubstellato:%BINTRAY_API_KEY% -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:%BUILD_COMMIT%" https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/
   - curl -X POST -ubstellato:%BINTRAY_API_KEY% https://api.bintray.com/content/bstellato/generic/osqp-wheels/%BUILD_COMMIT%/publish
 #
