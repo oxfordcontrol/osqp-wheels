@@ -14,8 +14,8 @@ env:
         - TEST_DEPENDS="numpy scipy future pytest"
         - PLAT=x86_64
         - UNICODE_WIDTH=32
-          # Bintray API key
-        - secure: "RgZWa1zTkbXzbF+TW89CDa0OD+hjVrZCSnsG9X3OQRyMRcR8yp61SudC0sopJyAhrXA++6zRENI/T1rTmTr1WYcitF22x3fzVvPL+IQEUCxXPV6GOb3cBB/f3rxkpxeBYXO+tgsH1ad+A9T2oihO0/94fKVpZ5uN5mjJbP4yatF+DyEk5+IlHkp0yrgNxyLYEo7QCaDQJhffBJCa4R3C2sb2oL5S3JV6C1svWeSRVey5lrkNwk+rL1Af0kIEfWCXYBq5dchDLFGgfJlzFTw3i/UmKSqtdkq/Eq3vKpvvqMCHcm9ibcWeJX1iNSXVmblycLitI/K1LjONWvrAioHsv9qRaf+YXtLtyb1WXLmaPdi0P138TIDMHLslFYBq1Sf+1WZJ5U3KItzNXjFw/c2yUIDXMePrXNbHodYwND+3QS+yAoIHXT0buxUjjEbD6g54YfqjsTX8w510l+dy7WZQUM6GJn7byiEDfEEu9RbhLuDRHMG8h2viya9aLgIEAMq92/XbS6v01aX24dPmrlSZEocqwrp8yJxGU4tYk+gj4rnWXYF7XfaOVvINc5RRwejZ1mIkMg1fCEqaBmKQiOwDuypoG0L9kDaX85fGwo7/LIdApsJWZvXewlW8ZQERSqFwXDJpQXjS8iHcCzJUR+WUWkrVMYzzr74Fr+XeKmQeQC4="
+        # BINTRAY_API_KEY
+        - secure: "U6ihXmjRVmJkmOfNagKxG8W3VcERrBl65e9GxvzEx8BoU/ifrRCQEc7CZMliMBVWUXTSZUe3jEuGl0voqi59/0yQgY2pf/AH0AAKUvuTvJ/9qiTyLKuii8K4mM/0SafJPHwSho6W9EoKpzvMNKCSEGGsD7ogF5jEthzIFWqOUnoUeK9hOdrzwz33Xl1xvQNF/mpCmehHc4DIu2zsW3pyftetJ86cVzGA5RgsnwPBh/lrD8qSX8rjJjS83itzQjkAGx5O9M1ouNWwctrQmLJE+fzHwNiH2o7XG8ZlvKQY1uvFS+UpLmAuZaoQlJqiBnT2iL19qUrx+Cqq179kHRsEQUssnpXmtadcAj145uHi2DcDD22HVSzYXge91g4475KZRqbvuP1/WnrnBUxJY/fW4zmqi/a5FfPwT2t2QF2WqNQilZ5fgiq9vx/ekjGL1oJ7sM6GE8HRud9LUo7zx1YjgY4C8nzibJxpISYdEEC9u09Y8H4vIqn7+BQ5M4gnUOO9ADDZ9+SqoD/tJAN+V5vrU2VmAyYlpeuJ92zf7FwwAE4RowmjCeJleuH88tySA4fpDExcE3ym6kFZ649PezrfAlVMhWzPU0RGJj1NtmjDEHn3qWmVmSk4VHZf595HZlyemLEDCQnpxTRdgTACWAFYzGQE3dkiT7LDMBPD2f7yskk="
         - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
         # Following generated with
         # travis encrypt -r your-org/your-project-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
