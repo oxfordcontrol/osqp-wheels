@@ -67,15 +67,16 @@ PyPI
 Download wheels from bintray.com
 
 ```
-mkdir tmp
-cd tmp
-wget -m -A 'Pillow-<VERSION>*' \
-	     https://dl.bintray.com/bstellato/generic/osqp-wheels/${BUILD_COMMIT}
+./distribute_wheels.py $BUILD_COMMIT
 ```
+where `BUILD_COMMIT` can be anything like `0.3.1`.
 
 Upload wheels to PyPI
 
 ```
-twine upload --repository pypi -p $PYPI_PASSWORD osqp-VERSION*
+cd tmp/
+twine upload --repository pypi -p $PYPI_PASSWORD *.whl
 ```
+
+For the twine access key ask [Bartolomeo Stellato](mailto:bartolomeo.stellato@gmail.com).
 

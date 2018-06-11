@@ -106,3 +106,4 @@ venv.bak/
 
 # OSX
 .DS_Store
+tmp/
