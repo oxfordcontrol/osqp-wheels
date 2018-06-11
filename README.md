@@ -70,12 +70,12 @@ Download wheels from bintray.com
 ./distribute_wheels.py $BUILD_COMMIT
 ```
 where `BUILD_COMMIT` can be anything like `0.3.1`.
+This script will download the wheels in to the `tmp/` folder.
 
 Upload wheels to PyPI
 
 ```
-cd tmp/
-twine upload --repository pypi -p $PYPI_PASSWORD *.whl
+twine upload --repository pypi -p $PYPI_PASSWORD tmp/*.whl
 ```
 
 For the twine access key ask [Bartolomeo Stellato](mailto:bartolomeo.stellato@gmail.com).
