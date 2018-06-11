@@ -75,8 +75,8 @@ This script will download the wheels in to the `tmp/` folder.
 Upload wheels to PyPI
 
 ```
-twine upload --repository pypi -p $PYPI_PASSWORD tmp/*.whl
+twine upload tmp/*.whl
 ```
 
-For the twine access key ask [Bartolomeo Stellato](mailto:bartolomeo.stellato@gmail.com).
+For the twine access user and password ask [Bartolomeo Stellato](mailto:bartolomeo.stellato@gmail.com).
 
