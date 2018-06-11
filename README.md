@@ -69,7 +69,7 @@ Download wheels from bintray.com
 ```
 ./distribute_wheels.py $BUILD_COMMIT
 ```
-where `BUILD_COMMIT` can be anything like `0.3.1`.
+where `BUILD_COMMIT` can be anything like `v0.3.1`.
 This script will download the wheels in to the `tmp/` folder.
 
 Upload wheels to PyPI
