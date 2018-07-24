@@ -92,8 +92,8 @@ install:
 
   # Build wheel
   - cd %REPO_DIR%
-  - git submodule update --init
   - git checkout %BUILD_COMMIT%
+  - git submodule update --init --recursive
   - python setup.py bdist_wheel
   - cd ..
 
