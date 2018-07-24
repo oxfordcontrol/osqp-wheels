@@ -54,13 +54,15 @@ reference. Keeping the old build logs helps us keep track of previous
 problems and successful builds.
 
 
-Which osqp commit does the repository build?
+Which osqp version does the repository build?
 ============================================
 
 The `osqp-wheels` repository will build the commit specified in the
 `BUILD_COMMIT` at the top of the `.travis.yml` and `appveyor.yml` files.
 This can be any naming of a commit, including branch name, tag name or
 commit hash.
+
+NB: The directory **osqp_sources** must be updated to the latest repository version in order to have all the commits.
 
 PyPI
 ====

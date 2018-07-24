@@ -2,7 +2,7 @@ env:
   global:
         - REPO_DIR=osqp-python
         # Commit from your-project that you want to build
-        - BUILD_COMMIT=v0.3.1
+        - BUILD_COMMIT=v0.4.0
         # Build against older version of Numpy supported
         - NP_BUILD_DEP="numpy==1.10.0"
         - NP_TEST_DEP="numpy==1.10.0"
