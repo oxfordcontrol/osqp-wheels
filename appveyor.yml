@@ -30,6 +30,14 @@ environment:
             9s0gdDGnNnTt7hvyNpn0/ZzOMGPdwPp2SewFTfGzYk7uI+rdAN9rFq2D1gAP4NQh
 
   matrix:
+    - PYTHON: C:\Python37
+      PYTHON_VERSION: 3.6
+      PYTHON_ARCH: 32
+
+    - PYTHON: C:\Python37-x64
+      PYTHON_VERSION: 3.7
+      PYTHON_ARCH: 64
+
     - PYTHON: C:\Python36
       PYTHON_VERSION: 3.6
       PYTHON_ARCH: 32
