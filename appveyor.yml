@@ -33,13 +33,13 @@ environment:
     - PYTHON: C:\Python37
       PYTHON_VERSION: 3.7
       PYTHON_ARCH: 32
-      NUMPY_BUILD_DEP: "numpy==1.14.5"
+      NP_BUILD_DEP: "numpy==1.14.5"
       NP_TEST_DEP: "numpy==1.14.5"
 
     - PYTHON: C:\Python37-x64
       PYTHON_VERSION: 3.7
       PYTHON_ARCH: 64
-      NUMPY_BUILD_DEP: "numpy==1.14.5"
+      NP_BUILD_DEP: "numpy==1.14.5"
       NP_TEST_DEP: "numpy==1.14.5"
 
     - PYTHON: C:\Python36
@@ -84,6 +84,10 @@ install:
   # Fix MSVC builds for 64-bit Python. See:
   # http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10
   - echo "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 > "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat"
+
+  # Fix for 64-bit Python 2.7 builds,
+  # Courtesy vs2008_express_vc_python_patch
+  - call %REPO_DIR%\fix_appveyor_x64.bat
 
   # Upgrade to the latest pip and setuptools.
   - python -m pip install -U pip setuptools
