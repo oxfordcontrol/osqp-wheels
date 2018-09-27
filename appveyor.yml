@@ -87,7 +87,7 @@ install:
 
   # Fix for 64-bit Python 2.7 builds,
   # Courtesy vs2008_express_vc_python_patch
-  - call %REPO_DIR%\fix_appveyor_x64.bat
+  - call fix_appveyor_x64.bat
 
   # Upgrade to the latest pip and setuptools.
   - python -m pip install -U pip setuptools
