@@ -102,9 +102,14 @@ install:
 
 script:
     - install_run $PLAT
+    # Create source distribution
+    - if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$MB_PYTHON_VERSION" == "3.6" ]; then
+      cd ${TRAVIS_BUILD_DIR}/osqp-python;
+      python setup.py sdist -d ${TRAVIS_BUILD_DIR}/wheelhouse/;
+      fi
 
 after_success:
     # Upload to bintray
-    - for f in ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl; do curl -T $f -ubstellato:$BINTRAY_API_KEY -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:${BUILD_COMMIT}" -H "X-Bintray-Override:1" https://api.bintray.com/content/bstellato/generic/osqp-wheels/${BUILD_COMMIT}/; done
+    - for f in ${TRAVIS_BUILD_DIR}/wheelhouse/*.{whl,tar.gz}; do curl -T $f -ubstellato:$BINTRAY_API_KEY -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:${BUILD_COMMIT}" -H "X-Bintray-Override:1" https://api.bintray.com/content/bstellato/generic/osqp-wheels/${BUILD_COMMIT}/; done
      # Publish
     - curl -X POST -ubstellato:$BINTRAY_API_KEY https://api.bintray.com/content/bstellato/generic/osqp-wheels/${BUILD_COMMIT}/publish
