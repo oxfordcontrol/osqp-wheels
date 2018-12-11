@@ -9,7 +9,7 @@ environment:
   global:
       REPO_DIR: osqp-python
       PKG_NAME: osqp
-      BUILD_COMMIT: v0.4.1
+      BUILD_COMMIT: v0.5.0
       NP_BUILD_DEP: "numpy==1.12.1"
       NP_TEST_DEP: "numpy==1.12.1"
       MINGW_32: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
