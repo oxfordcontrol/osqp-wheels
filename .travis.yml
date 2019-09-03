@@ -4,8 +4,8 @@ env:
         # Commit from your-project that you want to build
         - BUILD_COMMIT=v0.6.1
         # Build against older version of Numpy supported
-        - NP_BUILD_DEP="numpy==1.10.0"
-        - NP_TEST_DEP="numpy==1.10.0"
+        - NP_BUILD_DEP="numpy==1.13.3"
+        - NP_TEST_DEP="numpy==1.13.3"
         # pip dependencies to _build_ your project
         - BUILD_DEPENDS="cmake numpy scipy future"
         # pip dependencies to _test_ your project.  Include any dependencies
