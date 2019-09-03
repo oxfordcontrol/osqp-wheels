@@ -47,7 +47,7 @@ function pre_build {
 function run_tests {
 	# Runs tests on installed distribution from an empty directory
 	python --version
-	# python -c 'import sys; import yourpackage; sys.exit(yourpackage.test())'
-	cd ${TESTS_DIR}; python -m pytest
+	# Disable MKL since not in docker image
+	cd ${TESTS_DIR}; python -m pytest --pyargs osqp -k 'not mkl_'
 }
 
