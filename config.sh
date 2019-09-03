@@ -34,6 +34,7 @@ function pre_build {
 
 	# install_cmake
         # Get python binary location and add it to the path
+	pip install cmake
 	PYBIN=`python -c 'import sys; print(sys.executable[:-6])'`
 	rm -rf /usr/local/bin/cmake
 	ln -s $PYBIN/cmake /usr/local/bin/cmake
@@ -44,7 +45,6 @@ function pre_build {
 
 
 function run_tests {
-
 	# Runs tests on installed distribution from an empty directory
 	python --version
 	# python -c 'import sys; import yourpackage; sys.exit(yourpackage.test())'
