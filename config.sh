@@ -31,17 +31,18 @@ function install_cmake {
 function pre_build {
 	# Any stuff that you need to do before you start building the wheels
 	# Runs in the root directory of this repository.
-	install_cmake
+	# install_cmake
 
 	# Does not work
         # Get python binary location and add it to the path
-	# pip install cmake
+	pip install cmake
+	echo `which cmake`
 	# PYBIN=`python -c 'import sys; print(sys.executable[:-6])'`
 	# rm -rf /usr/local/bin/cmake
 	# ln -s $PYBIN/cmake /usr/local/bin/cmake
 
 	# Check cmake version
-	# cmake --version
+	cmake --version
 }
 
 
