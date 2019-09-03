@@ -14,7 +14,7 @@ function install_cmake {
 		brew upgrade cmake || brew install cmake
 	else
 		# Build cmake and zlib (required by cmake)
-		yum install -y zlib-dev
+		yum install -y zlib-devel
 		fetch_unpack http://www.cmake.org/files/v${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}/cmake-${CMAKE_VER_MAJ}.${CMAKE_VER_MIN}.${CMAKE_VER_PATCH}.tar.gz
 		(cd cmake-${CMAKE_VER_FULL} \
 			    && ./bootstrap --system-curl \
