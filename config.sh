@@ -13,7 +13,7 @@ function install_cmake {
 		brew update
 		brew upgrade cmake || brew install cmake
 	else
-		curl -O https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2-Linux-x86_64.sh
+		curl -LO https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2-Linux-x86_64.sh
 		chmod +x cmake-3.15.2-Linux-x86_64.sh
 		./cmake-3.15.2-Linux-x86_64.sh --prefix=/usr --skip-license --exclude-subdir
 
