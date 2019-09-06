@@ -31,10 +31,7 @@ TESTS_DIR="$(pwd)/osqp-python"
 function pre_build {
 	# Any stuff that you need to do before you start building the wheels
 	# Runs in the root directory of this repository.
-	# install_cmake
-	if [ -z "$IS_OSX" ]; then
-	    pip install cmake  # Version in manylinux1 container too old.
-	fi
+	:
 }
 
 
