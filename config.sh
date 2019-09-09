@@ -6,6 +6,7 @@ function pre_build {
 	# Runs in the root directory of this repository.
 
 	# Fix cmake installation linking the appropriate binary
+	rm `python -c 'import sys; print(sys.executable[:-6])'`/cmake
 	CMAKE_BIN=`python -c "import site; print(site.getsitepackages()[0])"`/cmake/data/bin/cmake
 	ln -sf ${CMAKE_BIN} /usr/bin/cmake
 }
