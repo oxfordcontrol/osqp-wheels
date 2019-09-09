@@ -5,11 +5,9 @@ function pre_build {
 	# Any stuff that you need to do before you start building the wheels
 	# Runs in the root directory of this repository.
 
-	# Fix cmake installation
-	PYBIN=`python -c 'import sys; print(sys.executable[:-6])'`
-	ln -sf $PYBIN/cmake /usr/bin/cmake
-	CMAKE_FIX="#!/$PYBIN/python"
-	sed -i "1s/.*/$CMAKE_FIX/" /usr/bin/cmake
+	# Fix cmake installation linking the appropriate binary
+	CMAKE_BIN=`python -c "import site; print(site.getsitepackages()[0])"`/cmake/data/bin/cmake
+	ln -sf ${CMAKE_BIN} /usr/bin/cmake
 }
 
 
