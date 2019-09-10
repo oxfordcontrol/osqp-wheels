@@ -102,15 +102,6 @@ install:
 
 script:
     - install_run $PLAT
-    # Create and upload source distribution
-    - |
-      if [ "$TRAVIS_OS_NAME" == "linux" ] && [ "$MB_PYTHON_VERSION" == "3.6" ]; then
-        cd ${TRAVIS_BUILD_DIR}/osqp-python;
-        python setup.py sdist;
-        for f in dist/*; do
-          curl -T $f -ubstellato:$BINTRAY_API_KEY -H "X-Bintray-Package:osqp-wheels" -H "X-Bintray-Version:${BUILD_COMMIT}" -H "X-Bintray-Override:1" https://api.bintray.com/content/bstellato/generic/osqp-wheels/${BUILD_COMMIT}/;
-        done
-      fi
 
 after_success:
     # Upload to bintray

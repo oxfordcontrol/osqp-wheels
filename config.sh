@@ -28,6 +28,11 @@ function run_tests {
 	# Fix cmake installation linking the appropriate binary
 	fix_cmake
 
+        # Create source distribution and put into wheelhouse
+        if [ -z "$IS_OSX" ] && [ "$MB_PYTHON_VERSION" == "3.6" ]; then
+            cd ${TESTS_DIR}; python setup.py sdist --dist-dir /io/wheelhouse/;
+        fi
+
 	# Runs tests on installed distribution from an empty directory
 	python --version
 	# python -c 'import sys; import yourpackage; sys.exit(yourpackage.test())'
