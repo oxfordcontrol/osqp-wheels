@@ -30,8 +30,8 @@ function run_tests {
 
         # Create source distribution and put into wheelhouse
         if [ -z "$IS_OSX" ] && [ "$MB_PYTHON_VERSION" == "3.6" ]; then
-            cd ${TESTS_DIR}; python setup.py sdist --dist-dir ${TESTS_DIR}/wheelhouse/;
-	    echo "Created source distribution in ${TESTS_DIR}/wheelhouse"
+            cd ${TESTS_DIR}; python setup.py sdist --dist-dir /io/wheelhouse/;
+	    echo "Created source distribution in /io/wheelhouse"
         fi
 
 	# Runs tests on installed distribution from an empty directory
