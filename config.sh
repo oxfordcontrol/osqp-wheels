@@ -3,11 +3,16 @@
 TESTS_DIR="$(pwd)/osqp-python"
 
 function fix_cmake {
-	# Fix cmake installation linking the appropriate binary
-	pip install cmake
-	rm `python -c 'import sys; print(sys.executable[:-6])'`cmake
-	CMAKE_BIN=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`/cmake/data/bin/cmake
-	ln -sf ${CMAKE_BIN} /usr/bin/cmake
+	if [ -n "$IS_OSX" ]; then
+		brew update
+		brew upgrade cmake || brew install cmake
+	else
+		# Fix cmake installation linking the appropriate binary
+		pip install cmake
+		rm `python -c 'import sys; print(sys.executable[:-6])'`cmake
+		CMAKE_BIN=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`/cmake/data/bin/cmake
+		ln -sf ${CMAKE_BIN} /usr/local/bin/cmake
+	fi
 }
 
 function pre_build {
