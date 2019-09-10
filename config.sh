@@ -6,7 +6,7 @@ function fix_cmake {
 	# Fix cmake installation linking the appropriate binary
 	pip install cmake
 	rm `python -c 'import sys; print(sys.executable[:-6])'`cmake
-	CMAKE_BIN=`python -c "import site; print(site.getsitepackages()[0])"`/cmake/data/bin/cmake
+	CMAKE_BIN=`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`/cmake/data/bin/cmake
 	ln -sf ${CMAKE_BIN} /usr/bin/cmake
 }
 
