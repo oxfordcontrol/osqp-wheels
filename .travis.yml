@@ -96,7 +96,7 @@ matrix:
 
 before_install:
     - BUILD_DEPENDS="$BUILD_DEPENDS $NP_BUILD_DEP"
-    - TEST_DEPENDS="$TEST_DEPENDS $NP_TEST_DEP
+    - TEST_DEPENDS="$TEST_DEPENDS $NP_TEST_DEP"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
