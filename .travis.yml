@@ -6,12 +6,12 @@ env:
         # Build against older version of Numpy supported
         - NP_BUILD_DEP="numpy==1.13.3"
         - NP_TEST_DEP="numpy==1.13.3"
-        # pip dependencies to _build_ your project
-        - BUILD_DEPENDS="numpy scipy future"
+        # pip dependencies to _build_ your project. numpy is added later
+        - BUILD_DEPENDS="scipy future"
         # pip dependencies to _test_ your project.  Include any dependencies
         # that you need, that are also specified in BUILD_DEPENDS, this will be
-        # a separate install.
-        - TEST_DEPENDS="numpy scipy future pytest"
+        # a separate install.  numpy is added later
+        - TEST_DEPENDS="scipy future pytest"
         - PLAT=x86_64
         - UNICODE_WIDTH=32
         # BINTRAY_API_KEY
