@@ -30,6 +30,18 @@ environment:
             9s0gdDGnNnTt7hvyNpn0/ZzOMGPdwPp2SewFTfGzYk7uI+rdAN9rFq2D1gAP4NQh
 
   matrix:
+    - PYTHON: C:\Python39
+      PYTHON_VERSION: 3.9
+      PYTHON_ARCH: 32
+      # NP_BUILD_DEP: "numpy==1.17.5"
+      # NP_TEST_DEP: "numpy==1.17.5"
+
+    - PYTHON: C:\Python39-x64
+      PYTHON_VERSION: 3.9
+      PYTHON_ARCH: 64
+      # NP_BUILD_DEP: "numpy==1.17.5"
+      # NP_TEST_DEP: "numpy==1.17.5"
+
     - PYTHON: C:\Python38
       PYTHON_VERSION: 3.8
       PYTHON_ARCH: 32
