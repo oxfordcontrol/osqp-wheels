@@ -2,7 +2,7 @@ env:
   global:
         
         - REPO_DIR=osqp-python
-        - DOCKER_IMAGE=quay.io/pypa/manylinux2014_aarch64
+        #- DOCKER_IMAGE=quay.io/pypa/manylinux2014_aarch64
         # Commit from your-project that you want to build
         - BUILD_COMMIT=v0.6.1
         # Build against older version of Numpy supported
@@ -14,7 +14,7 @@ env:
         # that you need, that are also specified in BUILD_DEPENDS, this will be
         # a separate install.
         - TEST_DEPENDS="numpy scipy future pytest"
-        - PLAT=aarch64
+        - PLAT=x86
         - UNICODE_WIDTH=32
         # BINTRAY_API_KEY
         - secure: "U6ihXmjRVmJkmOfNagKxG8W3VcERrBl65e9GxvzEx8BoU/ifrRCQEc7CZMliMBVWUXTSZUe3jEuGl0voqi59/0yQgY2pf/AH0AAKUvuTvJ/9qiTyLKuii8K4mM/0SafJPHwSho6W9EoKpzvMNKCSEGGsD7ogF5jEthzIFWqOUnoUeK9hOdrzwz33Xl1xvQNF/mpCmehHc4DIu2zsW3pyftetJ86cVzGA5RgsnwPBh/lrD8qSX8rjJjS83itzQjkAGx5O9M1ouNWwctrQmLJE+fzHwNiH2o7XG8ZlvKQY1uvFS+UpLmAuZaoQlJqiBnT2iL19qUrx+Cqq179kHRsEQUssnpXmtadcAj145uHi2DcDD22HVSzYXge91g4475KZRqbvuP1/WnrnBUxJY/fW4zmqi/a5FfPwT2t2QF2WqNQilZ5fgiq9vx/ekjGL1oJ7sM6GE8HRud9LUo7zx1YjgY4C8nzibJxpISYdEEC9u09Y8H4vIqn7+BQ5M4gnUOO9ADDZ9+SqoD/tJAN+V5vrU2VmAyYlpeuJ92zf7FwwAE4RowmjCeJleuH88tySA4fpDExcE3ym6kFZ649PezrfAlVMhWzPU0RGJj1NtmjDEHn3qWmVmSk4VHZf595HZlyemLEDCQnpxTRdgTACWAFYzGQE3dkiT7LDMBPD2f7yskk="
@@ -114,7 +114,7 @@ install:
     - build_wheel $REPO_DIR $PLAT
 
 script:
-    - install_run $PLAT
+    - if [[ $PLAT != "aarch64" ]] then; install_run $PLAT fi;
 
 after_success:
     # Upload to bintray
