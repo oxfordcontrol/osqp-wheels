@@ -114,7 +114,7 @@ install:
     - build_wheel $REPO_DIR $PLAT
 
 script:
-    - if [[ $PLAT != "aarch64" ]] then; install_run $PLAT fi;
+    - if [[ $PLAT != "aarch64" ]]; then install_run $PLAT; fi
 
 after_success:
     # Upload to bintray
