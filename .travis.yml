@@ -72,32 +72,54 @@ matrix:
         - MB_PYTHON_VERSION=3.9
         - PLAT=i686
 
-    # OSX
-    - os:        osx
-      osx_image: xcode8.3
-      language:  generic
-      env:
-        - MB_PYTHON_VERSION=3.5
-    - os:        osx
-      osx_image: xcode8.3
-      language:  generic
-      env:
-        - MB_PYTHON_VERSION=3.6
-    - os:        osx
-      osx_image: xcode8.3
-      language:  generic
+    # Linux aarch64
+    - os:        linux
+      arch: arm64
       env:
         - MB_PYTHON_VERSION=3.7
-    - os:        osx
-      osx_image: xcode8.3
-      language:  generic
+        - PLAT=aarch64
+        - DOCKER_IMAGE=quay.io/pypa/manylinux2014_aarch64
+    
+    - os:        linux
+      arch: arm64
       env:
         - MB_PYTHON_VERSION=3.8
-    - os:        osx
-      osx_image: xcode8.3
-      language:  generic
+        - PLAT=aarch64
+        - DOCKER_IMAGE=quay.io/pypa/manylinux2014_aarch64
+
+    - os:        linux
+      arch: arm64
       env:
         - MB_PYTHON_VERSION=3.9
+        - PLAT=aarch64
+        - DOCKER_IMAGE=quay.io/pypa/manylinux2014_aarch64
+    
+    # OSX
+    #- os:        osx
+    #  osx_image: xcode8.3
+    #  language:  generic
+    #  env:
+    #    - MB_PYTHON_VERSION=3.5
+    #- os:        osx
+    #  osx_image: xcode8.3
+    #  language:  generic
+    #  env:
+    #    - MB_PYTHON_VERSION=3.6
+    #- os:        osx
+    #  osx_image: xcode8.3
+    #  language:  generic
+    #  env:
+    #    - MB_PYTHON_VERSION=3.7
+    #- os:        osx
+    #  osx_image: xcode8.3
+    #  language:  generic
+    #  env:
+    #    - MB_PYTHON_VERSION=3.8
+    #- os:        osx
+    #  osx_image: xcode8.3
+    #  language:  generic
+    #  env:
+    #    - MB_PYTHON_VERSION=3.9
 
 before_install:
     - source multibuild/common_utils.sh
@@ -110,7 +132,7 @@ install:
     - build_wheel $REPO_DIR $PLAT
 
 script:
-    - install_run $PLAT
+    - if [[ $PLAT != "aarch64" ]]; then install_run $PLAT; fi
 
 after_success:
     # Upload to bintray
