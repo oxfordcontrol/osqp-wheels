@@ -42,6 +42,7 @@ matrix:
       arch: arm64
       env:
         - MB_PYTHON_VERSION=3.7
+        - PLAT=aarch64
         - DOCKER_IMAGE=quay.io/pypa/manylinux2014_aarch64
     - os:        linux
       env:
